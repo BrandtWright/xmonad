@@ -1,25 +1,27 @@
 #!/usr/bin/env bash
+#
+# Builds this configuration: xmonad.hs (with the modules in lib/) into the
+# binary XMonad runs, and xmonadctl into ~/.local/bin.
+#
+# `xmonad --recompile` runs this from the configuration folder, with the
+# binary's path as its argument; run by hand (./build), it writes XMonad's
+# usual binary here. Its exit status is the compilers': 0 only if both
+# succeeded. The notification is a courtesy, and never fails the build.
+set -u
 
-# Compile xmonad
-ghc -i./lib -dynamic -odir bin -hidir bin -o xmonad-x86_64-linux xmonad.hs
-retval=$?
+out=${1:-./xmonad-x86_64-linux}
+ghc -i./lib -dynamic -odir bin -hidir bin -o "$out" xmonad.hs
+status=$?
 
-# Compile xmonadctl (ServerMode control utility)
-ghc -dynamic -odir bin -hidir bin -o ~/.local/bin/xmonadctl xmonadctl.hs
-retval2=$?
+mkdir -p "$HOME/.local/bin"
+ghc -dynamic -odir bin -hidir bin -o "$HOME/.local/bin/xmonadctl" xmonadctl.hs
+status_ctl=$?
 
-if [ "$retval" -ne 0 ] || [ "$retval2" -ne 0 ]; then
-    notify-send \
-        -a "Xmonad" \
-        -i "$HOME/data/base/icons/error-icon-32.png" \
-        -t 3000 \
-        "Xmonad" \
-        "Compilation Failed"
-else
-    notify-send \
-        -a "Xmonad" \
-        -i "$HOME/data/base/icons/success-icon-5.png" \
-        -t 3000 \
-        "Xmonad" \
-        "Compilation Successful"
+if [ "$status" -eq 0 ] && [ "$status_ctl" -eq 0 ]; then
+    notify-send -a "Xmonad" -i "$HOME/data/base/icons/success-icon-5.png" \
+        -t 3000 "Xmonad" "Compilation Successful" 2>/dev/null || true
+    exit 0
 fi
+notify-send -a "Xmonad" -i "$HOME/data/base/icons/error-icon-32.png" \
+    -t 3000 "Xmonad" "Compilation Failed" 2>/dev/null || true
+exit 1

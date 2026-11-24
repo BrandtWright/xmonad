@@ -273,7 +273,7 @@ myManageHook =
 --------------------------------------------------------------------------------
 -- Xmobar
 --------------------------------------------------------------------------------
-myWsBar = "xmobar $HOME/.xmonad/xmobarrc"
+myWsBar = "xmobar $HOME/.config/xmobar/xmobarrc"
 
 myLayoutPrinter :: String -> String
 myLayoutPrinter layout = xmobarColor primaryAccentForeground primaryAccentBackground icon

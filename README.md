@@ -12,15 +12,17 @@ On Arch Linux, with `ghc`, `xmonad` and `xmonad-contrib` installed:
 ```
 
 It compiles `xmonad.hs` (with the modules in `lib/`) and installs
-`xmonadctl` into `~/.local/bin`, then reports the result with
-`notify-send`.
+`xmonadctl` into `~/.local/bin`; its exit status says whether both
+compiled, and `notify-send` reports it on the desktop. `xmonad --recompile`
+runs it too, giving it the path for XMonad's binary.
 
 ## Colours and fonts
 
 The colours come from `~/.Xresources` when XMonad starts (`lib/User/Theme.hs`),
 with fallbacks for when it's missing, so this repository holds no theme of
 its own. On my machines, `~/.Xresources` and the status bar's (xmobar's)
-configuration are written by my host provisioning, from one palette.
+configuration, `~/.config/xmobar/xmobarrc`, are written by my host
+provisioning, from one palette.
 
 ## Layout icons
 

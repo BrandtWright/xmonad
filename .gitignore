@@ -1,0 +1,7 @@
+# What building leaves behind (./build, or xmonad --recompile).
+/bin/
+/xmonad-x86_64-linux
+*.hi
+*.o
+/xmonad.errors
+/dist-newstyle/

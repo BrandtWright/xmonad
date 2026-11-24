@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Compile xmonad
+ghc -i./lib -dynamic -odir bin -hidir bin -o xmonad-x86_64-linux xmonad.hs
+retval=$?
+
+# Compile xmonadctl (ServerMode control utility)
+ghc -dynamic -odir bin -hidir bin -o ~/.local/bin/xmonadctl xmonadctl.hs
+retval2=$?
+
+if [ "$retval" -ne 0 ] || [ "$retval2" -ne 0 ]; then
+    notify-send \
+        -a "Xmonad" \
+        -i "$HOME/data/base/icons/error-icon-32.png" \
+        -t 3000 \
+        "Xmonad" \
+        "Compilation Failed"
+else
+    notify-send \
+        -a "Xmonad" \
+        -i "$HOME/data/base/icons/success-icon-5.png" \
+        -t 3000 \
+        "Xmonad" \
+        "Compilation Successful"
+fi

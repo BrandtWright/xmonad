@@ -1,0 +1,49 @@
+cabal-version: 2.4
+name:          xmonad-config
+version:       0.1.0.0
+build-type:    Simple
+
+executable xmonad-config
+  main-is:            xmonad.hs
+  hs-source-dirs:     . lib
+  other-modules:
+    User.Apps
+    User.Bindings
+    User.Bookmarks
+    User.Dotfiles
+    User.Git
+    User.Hardware
+    User.Hypervisor
+    User.Prompts
+    User.Search
+    User.Session
+    User.Spawn
+    User.Tasks
+    User.Terminal
+    User.Theme
+    User.Tree
+    User.Utilities
+    User.Windows
+    User.Workspaces
+
+  build-depends:
+    , base
+    , containers
+    , directory
+    , process
+    , X11
+    , xmonad
+    , xmonad-contrib
+
+  default-language:   Haskell2010
+  default-extensions: ImportQualifiedPost
+  ghc-options:        -dynamic
+
+executable xmonadctl
+  main-is:          xmonadctl.hs
+  build-depends:
+    , base
+    , X11
+
+  default-language: Haskell2010
+  ghc-options:      -dynamic
